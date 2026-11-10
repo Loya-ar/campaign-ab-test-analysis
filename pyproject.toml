@@ -1,0 +1,9 @@
+[project]
+name = "abtest"
+version = "1.0.0"
+description = "A/B test analysis of the Hillstrom email experiment"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

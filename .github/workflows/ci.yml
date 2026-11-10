@@ -1,0 +1,57 @@
+name: CI
+
+# Free: GitHub Actions minutes are unlimited for public repositories.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    # Unit tests for the stats functions. They use synthetic data, so no download is needed.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install
+        run: pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: pytest -v
+
+  reproduce:
+    # Downloads the real data (4 MB, checksum verified), reruns every analysis step and
+    # fails if any committed report changes. This proves the numbers in reports/ and the
+    # README come from the code.
+    needs: tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Download data and run every step
+        run: python scripts/run_all.py
+
+      - name: Check the reports match the committed versions
+        run: git diff --exit-code -- reports/
