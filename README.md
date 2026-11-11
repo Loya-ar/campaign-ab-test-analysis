@@ -1,6 +1,8 @@
-# A/B Testing an Email Campaign: from Power Analysis to Ship Decision
+# Campaign A/B Test Analysis
 
-[![CI](https://github.com/Loya-ar/ab-testing-email-experiment/actions/workflows/ci.yml/badge.svg)](https://github.com/Loya-ar/ab-testing-email-experiment/actions/workflows/ci.yml)
+**From power analysis to ship decision, on a real randomised marketing experiment.**
+
+[![CI](https://github.com/Loya-ar/campaign-ab-test-analysis/actions/workflows/ci.yml/badge.svg)](https://github.com/Loya-ar/campaign-ab-test-analysis/actions/workflows/ci.yml)
 
 A complete, tested analysis of a real randomised experiment, run the way a bank's analytics team
 would evaluate a marketing campaign (a card offer, a deposit promotion, an app nudge). It covers
